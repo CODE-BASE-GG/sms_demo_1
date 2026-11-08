@@ -1,0 +1,22 @@
+# dependencies
+node_modules/
+server/node_modules/
+client/node_modules/
+
+# environment
+.env
+.env.local
+server/.env
+client/.env
+client/.env.local
+
+# builds
+client/dist/
+dist/
+
+# logs and misc
+*.log
+npm-debug.log*
+.DS_Store
+.vscode/
+.idea/
