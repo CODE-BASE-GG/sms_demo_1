@@ -41,6 +41,7 @@ async function main() {
       'StudentScore',
       'Attendance',
       'Log',
+      'PendingAction',
     ];
     const found = expectedTables.filter((table) => existing.has(table));
 
@@ -48,12 +49,12 @@ async function main() {
       if (!RESET) {
         if (found.length === expectedTables.length) {
           console.log(
-            'Database is already initialised (all 12 tables were found). Nothing to do.',
+            `Database is already initialised (all ${expectedTables.length} tables were found). Nothing to do.`,
           );
           console.log('Run "npm run db:reset" to drop everything and re-create it.');
         } else {
           console.error(
-            `Only ${found.length} of the 12 expected tables exist (${found.join(', ')}).`,
+            `Only ${found.length} of the ${expectedTables.length} expected tables exist (${found.join(', ')}).`,
           );
           console.error('Run "npm run db:reset" to rebuild the schema cleanly.');
           process.exitCode = 1;
@@ -64,6 +65,7 @@ async function main() {
       console.log('Dropping existing tables...');
       await connection.query('SET FOREIGN_KEY_CHECKS = 0');
       for (const table of [
+        'PendingAction',
         'Log',
         'Attendance',
         'StudentScore',

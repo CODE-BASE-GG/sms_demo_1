@@ -40,6 +40,9 @@ async function clearData() {
     console.log('Clearing Log...');
     await connection.query('TRUNCATE TABLE `Log`');
 
+    console.log('Clearing PendingAction...');
+    await connection.query('TRUNCATE TABLE `PendingAction`');
+
     // Keep only demo teachers
     console.log('Cleaning Teacher table to keep only demo accounts...');
     await connection.query(

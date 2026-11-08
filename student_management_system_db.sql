@@ -85,6 +85,19 @@ CREATE TABLE `Log` (
   `Status` varchar(10) DEFAULT 'Pending'
 );
 
+CREATE TABLE `PendingAction` (
+  `PendingActionID` int PRIMARY KEY AUTO_INCREMENT,
+  `LogID` int NOT NULL,
+  `TeacherID` int NOT NULL,
+  `ActionType` varchar(10) NOT NULL,
+  `TargetTable` varchar(30) NOT NULL,
+  `TargetID` int NOT NULL,
+  `Payload` text,
+  `Reason` varchar(255) NOT NULL,
+  `Status` varchar(20) DEFAULT 'Pending',
+  `CreatedAt` datetime DEFAULT (CURRENT_TIMESTAMP)
+);
+
 ALTER TABLE `CourseSubject` ADD FOREIGN KEY (`CourseID`) REFERENCES `Course` (`CourseID`);
 
 ALTER TABLE `CourseSubject` ADD FOREIGN KEY (`SubjectID`) REFERENCES `Subject` (`SubjectID`);
@@ -112,3 +125,7 @@ ALTER TABLE `Attendance` ADD FOREIGN KEY (`SubjectID`) REFERENCES `Subject` (`Su
 ALTER TABLE `Log` ADD FOREIGN KEY (`TeacherID`) REFERENCES `Teacher` (`TeacherID`);
 
 ALTER TABLE `Log` ADD FOREIGN KEY (`AdminID`) REFERENCES `Admin` (`AdminID`);
+
+ALTER TABLE `PendingAction` ADD FOREIGN KEY (`LogID`) REFERENCES `Log` (`LogID`) ON DELETE CASCADE;
+
+ALTER TABLE `PendingAction` ADD FOREIGN KEY (`TeacherID`) REFERENCES `Teacher` (`TeacherID`);
